@@ -138,4 +138,33 @@ class TaskTest extends TestCase
             'description' => $task->description,
         ]);
     }
+
+    /** @test */
+    public function an_authenticated_user_can_update_a_task(): void
+    {
+        $user = User::factory()->create();
+
+        Passport::actingAs($user);
+
+        $task = Task::factory()->create();
+        $newAttributes = Task::factory()->raw();
+
+        $response = $this->patchJson("api/tasks/{$task->id}", $newAttributes);
+
+        $response
+            ->assertOk()
+            ->assertJsonStructure([
+                                      'data' => [
+                                          'title',
+                                          'description',
+                                          'status',
+                                          'user_id',
+                                      ],
+                                  ]);
+
+        $this->assertDatabaseHas('tasks', [
+            'title'       => $newAttributes['title'],
+            'description' => $newAttributes['description'],
+        ]);
+    }
 }
