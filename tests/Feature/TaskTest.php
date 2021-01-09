@@ -85,4 +85,29 @@ class TaskTest extends TestCase
                                       ],
                                   ]);
     }
+
+    /** @test */
+    public function an_authenticated_user_can_list_tasks(): void
+    {
+        $user = User::factory()->create();
+
+        Passport::actingAs($user);
+
+        Task::factory()->count(random_int(3, 5))->create();
+
+        $response = $this->getJson('api/tasks');
+
+        $response
+            ->assertOk()
+            ->assertJsonStructure([
+                                      'data' => [
+                                          [
+                                              'title',
+                                              'description',
+                                              'status',
+                                              'user_id',
+                                          ],
+                                      ],
+                                  ]);
+    }
 }
