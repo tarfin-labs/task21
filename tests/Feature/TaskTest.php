@@ -110,4 +110,32 @@ class TaskTest extends TestCase
                                       ],
                                   ]);
     }
+
+    /** @test */
+    public function an_authenticated_user_can_remove_a_task(): void
+    {
+        $user = User::factory()->create();
+
+        Passport::actingAs($user);
+
+        $task = Task::factory()->create();
+
+        $response = $this->deleteJson("api/tasks/{$task->id}");
+
+        $response
+            ->assertOk()
+            ->assertJsonStructure([
+                                      'data' => [
+                                          'title',
+                                          'description',
+                                          'status',
+                                          'user_id',
+                                      ],
+                                  ]);
+
+        $this->assertDatabaseMissing('tasks', [
+            'title'       => $task->title,
+            'description' => $task->description,
+        ]);
+    }
 }
