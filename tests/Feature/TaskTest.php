@@ -39,4 +39,27 @@ class TaskTest extends TestCase
             'description' => $attributes['description'],
         ]);
     }
+
+    /** @test */
+    public function a_task_requires_a_title(): void
+    {
+        $user = User::factory()->create();
+
+        Passport::actingAs($user);
+
+        $attributes = Task::factory()
+                          ->raw([
+                                    'title' => '',
+                                ]);
+
+        $response = $this->postJson('api/tasks', $attributes);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['title']);
+
+        $this->assertDatabaseMissing('tasks', [
+            'title' => $attributes['title'],
+        ]);
+    }
 }
