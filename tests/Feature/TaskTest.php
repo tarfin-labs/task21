@@ -62,4 +62,27 @@ class TaskTest extends TestCase
             'title' => $attributes['title'],
         ]);
     }
+
+    /** @test */
+    public function an_authenticated_user_can_get_a_task(): void
+    {
+        $user = User::factory()->create();
+
+        Passport::actingAs($user);
+
+        $task = Task::factory()->create();
+
+        $response = $this->getJson("api/tasks/{$task->id}");
+
+        $response
+            ->assertOk()
+            ->assertJsonStructure([
+                                      'data' => [
+                                          'title',
+                                          'description',
+                                          'status',
+                                          'user_id',
+                                      ],
+                                  ]);
+    }
 }
