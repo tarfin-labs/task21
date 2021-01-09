@@ -18,4 +18,45 @@ class TaskTest extends TestCase
 
         $this->assertInstanceOf(User::class, $task->assignedUser);
     }
+
+    /** @test */
+    public function tasks_can_be_sorted_by_statuses(): void
+    {
+        collect([
+                    ['Todo A', Task::TODO],
+                    ['Todo B', Task::DOING],
+                    ['Todo C', Task::DOING],
+                    ['Todo Ç', Task::DONE],
+                    ['Todo 05', Task::DONE],
+                    ['Todo 06', Task::TODO,],
+                    ['Todo 07', Task::TODO],
+                    ['Todo *', Task::DONE],
+                    ['Todo >', Task::DOING],
+                    ['Todo #', Task::DOING],
+                ])
+            ->map(fn(Task $task) => Task::factory()
+                                        ->create([
+                                                     'title'  => $task[0],
+                                                     'status' => $task[1],
+                                                 ]
+                                        ));
+
+        $expected = [
+            'Todo #',   // DOING
+            'Todo >',   // DOING
+            'Todo B',   // DOING
+            'Todo C',   // DOING
+            'Todo 06',  // TODO
+            'Todo 07',  // TODO
+            'Todo A',   // TODO
+            'Todo *',   // DONE
+            'Todo 05',  // DONE
+            'Todo Ç',   // DONE
+        ];
+
+        $this->assertEquals(
+            Task::sortByStatus()->pluck('title')->toArray(),
+            $expected
+        );
+    }
 }
