@@ -34,7 +34,7 @@ class TaskTest extends TestCase
                     ['Todo >', Task::DOING],
                     ['Todo #', Task::DOING],
                 ])
-            ->map(fn(Task $task) => Task::factory()
+            ->map(fn(array $task) => Task::factory()
                                         ->create([
                                                      'title'  => $task[0],
                                                      'status' => $task[1],
