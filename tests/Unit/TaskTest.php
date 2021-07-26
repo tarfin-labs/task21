@@ -49,8 +49,8 @@ class TaskTest extends TestCase
             'Todo A',   // TODO
             'Todo 06',  // TODO
             'Todo 07',  // TODO
-            'Todo 05',  // DONE
             'Todo Ç',   // DONE
+            'Todo 05',  // DONE
             'Todo *',   // DONE
         ];
 
