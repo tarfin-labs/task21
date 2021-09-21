@@ -42,16 +42,16 @@ class TaskTest extends TestCase
                                         ));
 
         $expected = [
-            'Todo B',   // DOING
-            'Todo C',   // DOING
             'Todo #',   // DOING
             'Todo >',   // DOING
-            'Todo A',   // TODO
+            'Todo B',   // DOING
+            'Todo C',   // DOING
             'Todo 06',  // TODO
             'Todo 07',  // TODO
-            'Todo Ç',   // DONE
-            'Todo 05',  // DONE
+            'Todo A',   // TODO
             'Todo *',   // DONE
+            'Todo 05',  // DONE
+            'Todo Ç',   // DONE
         ];
 
         $this->assertEquals(

@@ -10,7 +10,7 @@ Bu küçük `Laravel` `API` projesinde sizden gerçekleştirmenizi beklediğimiz
 
 Temel düzeyle bir *TODO* uygulaması olarak düşünebileceğiniz bu projede `User` modeli ile ilişkili bir `Task` modeline ait `Rest API`'lerini yazacak; böylelikle yeni `Task`'lar oluşturabilecek, *listeleyebilecek*, *gösterebilecek*, *güncellenebilecek* ve *silinebilecektir*. 
 
-Bunun yanında `Task`'lar `status`'larına göre sıralanabilir olmalıdır. Sıralama algoritmasını, PHP (`sort(), rsort(), asort(), ksort()`) veya Laravel (`sort(), sortBy(), sortByDesc(), sortDesc(), sortKeys(), sortKeysDesc()` vb.) fonksiyonlarını kullanmadan, `kendiniz` yazmalısınız.
+Bunun yanında `Task`'lar `status`'larına göre sıralanabilir olmalıdır. Sıralama algoritmasını, PHP (`sort(), rsort(), asort(), ksort()`) veya Laravel (`sort(), sortBy(), sortByDesc(), sortDesc(), sortKeys(), sortKeysDesc()` vb.) fonksiyonlarını kullanarak yazabilirsiniz.
 
 
 Testlerin geçmesini sağlamak için:
